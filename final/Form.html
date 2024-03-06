@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Food Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Enter Food Details</h2>
+        <form id="foodForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="grains">Grains:</label>
+                <input type="text" id="grains" name="grains" required>
+            </div>
+            <div class="form-group">
+                <label for="waterUsage">Water Usage:</label>
+                <input type="text" id="waterUsage" name="waterUsage" required>
+            </div>
+            <div class="form-group">
+                <label for="cultivationMethod">Cultivation Method:</label>
+                <select id="cultivationMethod" name="cultivationMethod" required>
+                    <option value="">Select cultivation method</option>
+                    <option value="Organic">Organic</option>
+                    <option value="Conventional">Conventional</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="imageUpload">Upload Image:</label>
+                <input type="file" id="imageUpload" name="imageUpload" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <input type="button" value="Submit" onclick="saveData()">
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.3.0/dist/web3.min.js"></script>
+    <script>
+        // Create a Web3 instance
+        const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+
+        // ABI of the deployed smart contract
+        const abi = [
+            {
+                "constant": true,
+                "inputs": [
+                    {
+                        "name": "",
+                        "type": "address"
+                    }
+                ],
+                "name": "foodDetails",
+                "outputs": [
+                    {
+                        "name": "grains",
+                        "type": "string"
+                    },
+                    {
+                        "name": "waterUsage",
+                        "type": "string"
+                    },
+                    {
+                        "name": "cultivationMethod",
+                        "type": "string"
+                    },
+                    {
+                        "name": "imageUrl",
+                        "type": "string"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "constant": false,
+                "inputs": [
+                    {
+                        "name": "_grains",
+                        "type": "string"
+                    },
+                    {
+                        "name": "_waterUsage",
+                        "type": "string"
+                    },
+                    {
+                        "name": "_cultivationMethod",
+                        "type": "string"
+                    },
+                    {
+                        "name": "_imageUrl",
+                        "type": "string"
+                    }
+                ],
+                "name": "setFoodDetails",
+                "outputs": [],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "function"
+            }
+        ];
+
+        // Address of the deployed smart contract
+        const contractAddress = '0xA42Dd4d9e53CCa4501fD9b271360a44f38d8c666';
+
+        // Create an instance of the smart contract
+        const contract = new web3.eth.Contract(abi, contractAddress);
+
+        // Function to save data to the blockchain
+        async function saveData() {
+            const grains = document.getElementById('grains').value;
+            const waterUsage = document.getElementById('waterUsage').value;
+            const cultivationMethod = document.getElementById('cultivationMethod').value;
+            const imageUpload = document.getElementById('imageUpload').files[0];
+
+            // Convert image file to base64 string
+            const reader = new FileReader();
+            reader.readAsDataURL(imageUpload);
+            reader.onloadend = async function() {
+                const imageUrl = reader.result;
+
+                // Send transaction to the smart contract
+                try {
+                    const accounts = await web3.eth.requestAccounts();
+                    const sender = accounts[0];
+
+                    await contract.methods.setFoodDetails(grains, waterUsage, cultivationMethod, imageUrl)
+                        .send({ from: sender });
+
+                    alert('Data saved to the blockchain successfully!');
+                } catch (error) {
+                    console.error(error);
+                    alert('Failed to save data to the blockchain.');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
