@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login and Register with MetaMask</title>
+    <title>Login with MetaMask</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,20 +20,19 @@
             text-align: center;
         }
 
-        .login-btn, .register-btn {
+        .login-btn {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: hwb(121 10% 21%);
             color: #fff;
             border: none;
             cursor: pointer;
             font-size: 16px;
             border-radius: 5px;
             outline: none;
-            margin-right: 10px;
         }
 
-        .login-btn:hover, .register-btn:hover {
-            background-color: #0056b3;
+        .login-btn:hover {
+            background-color: #00b333;
         }
 
         /* Modal style */
@@ -78,36 +77,19 @@
 </head>
 <body>
     <div class="container">
-        <h2>Login and Register with MetaMask</h2>
+        <h2>Login with MetaMask</h2>
         <p>Please connect your MetaMask wallet to proceed.</p>
         <button class="login-btn" id="loginBtn">Login with MetaMask</button>
-        <button class="register-btn" id="registerBtn">Register with MetaMask</button>
-    </div>
-
-    <!-- Modal for name input -->
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Register with MetaMask</h3>
-            <p>Please enter your name:</p>
-            <input type="text" id="nameInput" placeholder="Your Name">
-            <button id="registerModalBtn">Register</button>
-        </div>
     </div>
 
     <script>
         // Specify the allowed wallet address
-        const allowedAddress = '0xDfAf379f08B6DB81e6e25ffbEF72edcfE7b3f7FB';
+        const allowedAddress = '0x78F8766230Ce56854d82EFA040Dc5E25fAC0879b';
 
         // Check if MetaMask is installed
         if (typeof window.ethereum !== 'undefined') {
             console.log('MetaMask is installed!');
             const loginBtn = document.getElementById('loginBtn');
-            const registerBtn = document.getElementById('registerBtn');
-            const registerModal = document.getElementById('registerModal');
-            const closeModal = document.getElementsByClassName('close')[0];
-            const registerModalBtn = document.getElementById('registerModalBtn');
-            const nameInput = document.getElementById('nameInput');
 
             // Add click event listener to the login button
             loginBtn.addEventListener('click', async () => {
@@ -128,46 +110,6 @@
                 } catch (error) {
                     console.error(error);
                     alert('Error logging in with MetaMask. Please make sure MetaMask is unlocked and connected.');
-                }
-            });
-
-            // Add click event listener to the register button
-            registerBtn.addEventListener('click', () => {
-                registerModal.style.display = 'block';
-            });
-
-            // Close the modal when the close button is clicked
-            closeModal.onclick = function() {
-                registerModal.style.display = 'none';
-            };
-
-            // Close the modal when the user clicks anywhere outside of the modal
-            window.onclick = function(event) {
-                if (event.target == registerModal) {
-                    registerModal.style.display = 'none';
-                }
-            };
-
-            // Register the user when the register button in the modal is clicked
-            registerModalBtn.addEventListener('click', async () => {
-                const name = nameInput.value.trim();
-                if (name) {
-                    try {
-                        // Request authentication from MetaMask
-                        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-                        const address = accounts[0];
-                        
-                        // Register the name and address
-                        console.log('Registered Name:', name);
-                        console.log('Registered Address:', address);
-                        alert('Registered Name: ' + name + '\nRegistered Address: ' + address);
-                        registerModal.style.display = 'none';
-                    } catch (error) {
-                        console.error(error);
-                        alert('Error registering with MetaMask. Please make sure MetaMask is unlocked and connected.');
-                    }
-                } else {
-                    alert('Name cannot be empty. Please enter your name to register.');
                 }
             });
         } else {
