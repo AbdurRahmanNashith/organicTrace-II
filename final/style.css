@@ -1,0 +1,134 @@
+/* Reset styles */
+body, h1, h2, p, ul, li {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6; /* Improve readability */
+}
+
+header {
+    background-image: url('./Images/Organic Fruit f 12c193ce-2c00-49da-8f39-4d8cac2920e4.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 100px 0;
+    position: relative;
+    font-weight: bold; /* Add bold font weight */
+}
+
+.header-image {
+    width: 50%;
+    max-width: 1200px; /* Set maximum width for the image */
+    height: auto;
+    margin: 0 auto; /* Center the image horizontally */
+    border-radius: 10px; /* Add border radius for rounded corners */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3); /* Add shadow for a more attractive appearance */
+}
+
+.hero {
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the hero content vertically and horizontally */
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: #fff; /* Ensure text color is white */
+}
+
+
+.hero-slogan {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    color: #fff; /* Ensure text color is white */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button-container {
+    position: absolute;
+    top: 10px;
+    right: -350px;
+  }
+  .button-container p {
+    margin-right: 10px;
+    display: inline;
+  }  
+  .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  .button:hover {
+    background-color: #45a049;
+  }
+
+.text-container {
+    flex: 1;
+    padding: 0 20px; /* Adjust padding as needed */
+    text-align: left;
+    color: #333; /* Adjust text color */
+}
+
+.text-container h2 {
+    font-size: 2rem; /* Adjust heading size */
+    margin-bottom: 20px; /* Adjust margin bottom for heading */
+}
+
+.text-container p {
+    font-size: 1.1rem; /* Adjust paragraph size */
+    line-height: 1.8; /* Adjust line height for better readability */
+    margin-bottom: 20px; /* Adjust margin bottom for paragraphs */
+}
+
+
+.image-container {
+    flex: 1;
+    text-align: center;
+    padding: 0 20px; /* Adjust padding as needed */
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px; /* Add border-radius for rounded corners */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3); /* Add shadow for a more attractive appearance */
+}
+
+section {
+    padding: 50px 0;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+footer {
+    background-color: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
