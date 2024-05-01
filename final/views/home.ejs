@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login with MetaMask</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .login-btn {
+            padding: 10px 20px;
+            background-color: hwb(121 10% 21%);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .login-btn:hover {
+            background-color: #00b333;
+        }
+
+        /* Modal style */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            border-radius: 10px;
+        }
+
+        /* Close button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login with MetaMask</h2>
+        <p>Please connect your MetaMask wallet to proceed.</p>
+        <button class="login-btn" id="loginBtn">Login with MetaMask</button>
+    </div>
+
+    <script>
+        // Specify the allowed wallet address
+        const allowedAddress = '0xc8cF64ab372446E3BbC248A6fb6AFc74afad9ee9';
+
+        // Check if MetaMask is installed
+        if (typeof window.ethereum !== 'undefined') {
+            console.log('MetaMask is installed!');
+            const loginBtn = document.getElementById('loginBtn');
+
+            // Add click event listener to the login button
+            loginBtn.addEventListener('click', async () => {
+                try {
+                    // Request authentication from MetaMask
+                    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                    const address = accounts[0];
+                    
+                    // Check if the logged-in address matches the allowed address
+                    if (address.toLowerCase() === allowedAddress.toLowerCase()) {
+                        console.log('Logged in with address:', address);
+                        alert('Logged in with address: ' + address);
+                        // Redirect to the form page
+                        window.location.href = './form';
+                    } else {
+                        alert('Unauthorized address. Please log in with the allowed address.');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert('Error logging in with MetaMask. Please make sure MetaMask is unlocked and connected.');
+                }
+            });
+        } else {
+            console.log('MetaMask is not installed!');
+            alert('MetaMask is not installed. Please install MetaMask to proceed.');
+        }
+    </script>
+</body>
+</html>

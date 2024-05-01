@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enter Food Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      background-image: url("https://miro.medium.com/v2/resize:fit:1400/1*rLQc0WmD76cZ1q9Y60N74Q.jpeg");
+    }
+
+    .navbar {
+      background-color: #333;
+      overflow: hidden;
+      padding: 10px;
+      color: white;
+    }
+
+    .navbar a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    .navbar a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .wallet-address {
+      float: right;
+      padding: 10px;
+      color: white;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="file"],
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-top: 5px;
+    }
+
+    input[type="submit"] {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    /* Style for radio buttons */
+    .radio-group {
+      display: none;
+      flex-direction: column;
+    }
+
+    .radio-group input[type="radio"] {
+      display: none;
+    }
+
+    .radio-group label {
+      position: relative;
+      padding-left: 30px;
+      cursor: pointer;
+      margin-bottom: 5px;
+    }
+
+    .radio-group label:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 20px;
+      height: 20px;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      background-color: #fff;
+    }
+
+    .radio-group input[type="radio"]:checked+label:before {
+      background-color: #007bff;
+    }
+
+    .radio-group label:after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #fff;
+      display: none;
+    }
+
+    .radio-group input[type="radio"]:checked+label:after {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <a href="./Hero.html">Home</a>
+    <div class="wallet-address" id="walletAddress"></div>
+  </div>
+  <div class="container">
+    <h2>Enter Food Details</h2>
+    <form id="foodForm" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="grains">Grains:</label>
+        <input type="text" id="grains" name="grains" required />
+      </div>
+      <div class="form-group">
+        <label for="waterUsage">Water Usage:</label>
+        <input type="text" id="waterUsage" name="waterUsage" required />
+      </div>
+      <div class="form-group">
+        <label for="cultivationMethod">Cultivation Method:</label>
+        <select id="cultivationMethod" name="cultivationMethod" required>
+          <option value="">Select cultivation method</option>
+          <option value="Crop rotation">Crop rotation</option>
+          <option value="Cover Cropping">Cover Cropping</option>
+          <option value="Mulching">Mulching</option>
+          <option value="Companion Planting">Companion Planting</option>
+          <option value="Mulching">Mulching</option>
+          <option value="Companion Planting">Companion Planting</option>
+          <option value="Integrated Pest Management (IPM)">
+            Integrated Pest Management (IPM)
+          </option>
+          <option value="Biological Control">Biological Control</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="soilType">Soil Type:</label>
+        <select id="soilType" name="soilType" required>
+          <option value="">Select soil type</option>
+          <option value="Loam">Loam</option>
+          <option value="Clay">Clay</option>
+          <option value="Silt">Silt</option>
+          <option value="Peat">Peat</option>
+          <option value="Chalky (Calcareous)">Chalky (Calcareous)</option>
+          <option value="Silica Sand">Silica Sand</option>
+          <option value="Volcanic Soil:">Volcanic Soil:</option>
+          <option value="Alluvial Soil">Alluvial Soil</option>
+          <option value="Laterite Soil">Laterite Soil</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="imageUpload">Upload Image:</label>
+        <input type="file" id="imageUpload" name="imageUpload" accept="image/*" required />
+      </div>
+      <div class="form-group">
+        <label for="farmLocation">Farm Location:</label>
+        <input type="text" id="farmLocation" name="farmLocation" required />
+      </div>
+
+      <div class="form-group">
+        <label for="organicFertilizer">Types of Organic Fertilizers Used:</label>
+        <div>
+          <select id="organicFertilizer" name="organicFertilizer" class="select-style" required
+            onclick="toggleFertilizerOptions()">
+            <option value="">Select fertilizers</option>
+            <option value="Compost">Compost</option>
+            <option value="Manure">Manure</option>
+            <option value="Bone Meal">Bone Meal</option>
+            <option value="Blood Meal">Blood Meal</option>
+            <option value="Fish Emulsion">Fish Emulsion</option>
+            <option value="Rock Phosphate">Rock Phosphate</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="supplierInfo">Supplier Information:</label>
+        <input type="text" id="supplierInfo" name="supplierInfo" required />
+      </div>
+
+      <div class="form-group">
+        <input type="button" value="Submit" onclick="saveData()" />
+      </div>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.3.0/dist/web3.min.js"></script>
+
+  <script>
+    // Create a Web3 instance
+    const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+    import mongoose from 'mongoose';
+
+    const mongoose = require('mongoose');
+
+    async function displayWalletAddress() {
+      try {
+        const accounts = await web3.eth.requestAccounts();
+        const walletAddress = accounts[0];
+        document.getElementById("walletAddress").innerText =
+          "Wallet Address: " + walletAddress;
+      } catch (error) {
+        console.error(error);
+        alert(
+          "Error fetching wallet address. Please make sure MetaMask is installed and connected."
+        );
+      }
+    }
+    window.addEventListener("load", displayWalletAddress);
+
+    // ABI of the deployed smart contract
+    const abi = [
+      {
+        constant: true,
+        inputs: [
+          {
+            name: "",
+            type: "address",
+          },
+        ],
+        name: "foodDetails",
+        outputs: [
+          {
+            name: "grains",
+            type: "string",
+          },
+          {
+            name: "waterUsage",
+            type: "string",
+          },
+          {
+            name: "cultivationMethod",
+            type: "string",
+          },
+          {
+            name: "imageUrl",
+            type: "string",
+          },
+          {
+            name: "farmLocation",
+            type: "string",
+          },
+          {
+            name: "organicFertilizer",
+            type: "string",
+          },
+          {
+            name: "supplierInfo",
+            type: "string",
+          },
+          {
+            name: "soilType",
+            type: "string",
+          },
+        ],
+        payable: false,
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        constant: false,
+        inputs: [
+          {
+            components: [
+              {
+                name: "grains",
+                type: "string",
+              },
+              {
+                name: "waterUsage",
+                type: "string",
+              },
+              {
+                name: "cultivationMethod",
+                type: "string",
+              },
+              {
+                name: "imageUrl",
+                type: "string",
+              },
+              {
+                name: "farmLocation",
+                type: "string",
+              },
+              {
+                name: "organicFertilizer",
+                type: "string",
+              },
+              {
+                name: "supplierInfo",
+                type: "string",
+              },
+              {
+                name: "soilType",
+                type: "string",
+              },
+            ],
+            name: "params",
+            type: "tuple",
+          },
+        ],
+        name: "setFoodDetails",
+        outputs: [],
+        payable: false,
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+    ];
+
+    // Address of the deployed smart contract
+    const contractAddress = "0xc8cF64ab372446E3BbC248A6fb6AFc74afad9ee9";
+
+    // Create an instance of the smart contract
+    const contract = new web3.eth.Contract(abi, contractAddress);
+
+    // Function to save data to the blockchain
+    async function saveData() {
+      const grains = document.getElementById("grains").value;
+      const waterUsage = document.getElementById("waterUsage").value;
+      const cultivationMethod =
+        document.getElementById("cultivationMethod").value;
+      const imageUpload = document.getElementById("imageUpload").files[0];
+      const farmLocation = document.getElementById("farmLocation").value;
+      const organicFertilizer =
+        document.getElementById("organicFertilizer").value;
+      const supplierInfo = document.getElementById("supplierInfo").value;
+      const soilType = document.getElementById("soilType").value;
+
+      // Convert image file to base64 string
+      const reader = new FileReader();
+      reader.readAsDataURL(imageUpload);
+      reader.onloadend = async function () {
+        const imageUrl = reader.result;
+
+        // Send transaction to the smart contract
+        try {
+          const accounts = await web3.eth.requestAccounts();
+          const sender = accounts[0];
+
+          const foodParams = {
+            grains: grains,
+            waterUsage: waterUsage,
+            cultivationMethod: cultivationMethod,
+            imageUrl: imageUrl,
+            farmLocation: farmLocation,
+            organicFertilizer: organicFertilizer,
+            supplierInfo: supplierInfo,
+            soilType: soilType,
+          };
+
+          await contract.methods
+            .setFoodDetails(foodParams)
+            .send({ from: sender });
+
+          alert("Data saved to the blockchain successfully!");
+        } catch (error) {
+          console.error(error);
+          alert("Data saved to the blockchain successfully!");
+        }
+      };
+
+      // Connection URI
+      const uri =
+        "mongodb+srv://ibrahimfardeen:ibrahimfardeen@test123.8wvw0m0.mongodb.net/";
+
+      // Connect to MongoDB
+      mongoose.connect(uri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+
+      // Get the default connection
+      const db = mongoose.connection;
+
+      // Event listeners for connection
+      db.on("error", console.error.bind(console, "connection error:"));
+      db.once("open", function () {
+        console.log("Connected to MongoDB successfully");
+        // Once connected, you can define and perform operations with Mongoose models here
+      });
+
+      // Define and create a Mongoose model (optional)
+      const Schema = mongoose.Schema;
+      const exampleSchema = new Schema({
+        name: String,
+        age: Number,
+      }, { timestamps: true });
+
+      const ExampleModel = mongoose.model("Example", exampleSchema);
+
+      // Example usage: Create a new document
+      const exampleDoc = new ExampleModel({
+        name: "John",
+        age: 30
+      });
+      exampleDoc.save().then(() => {
+        console.log("Document inserted successfully:")
+      })
+    }
+  </script>
+  <!-- <script src="app.js"></script> -->
+</body>
+
+</html>
