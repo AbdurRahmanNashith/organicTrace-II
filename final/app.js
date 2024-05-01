@@ -3,8 +3,7 @@
 // const mongoose = require('mongoose');
 
 // // Connection URI
-// const uri =
-//     "mongodb+srv://ibrahimfardeen:ibrahimfardeen@test123.8wvw0m0.mongodb.net/";
+// const uri = process.env.MONGODB_URI;
 
 // // Connect to MongoDB
 // mongoose.connect(uri, {
@@ -52,7 +51,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 // connect to mongodb & listen for requests
-const dbURI = "mongodb+srv://ibrahimfardeen:ibrahimfardeen@test123.8wvw0m0.mongodb.net/";
+const dbURI = process.env.MONGODB_URI;
 
 // mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.connect(dbURI)
