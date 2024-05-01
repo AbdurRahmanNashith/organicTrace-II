@@ -224,9 +224,9 @@
   <script>
     // Create a Web3 instance
     const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
-    import mongoose from 'mongoose';
+    // import mongoose from 'mongoose';
 
-    const mongoose = require('mongoose');
+    // const mongoose = require('mongoose');
 
     async function displayWalletAddress() {
       try {
@@ -395,8 +395,7 @@
       };
 
       // Connection URI
-      const uri =
-        "mongodb+srv://ibrahimfardeen:ibrahimfardeen@test123.8wvw0m0.mongodb.net/";
+      const uri = "mongodb+srv://ibrahimfardeen:ibrahimfardeen@test123.8wvw0m0.mongodb.net/";
 
       // Connect to MongoDB
       mongoose.connect(uri, {

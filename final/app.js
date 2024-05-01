@@ -45,6 +45,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+require('dotenv').config();
 // const blogRoutes = require('./routes/blogRoutes');
 
 // express app
@@ -90,6 +91,12 @@ app.get('/form', (req, res) => {
 app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
 });
+
+app.post('/submit', (req, res) => {
+    console.log(req.body);
+  res.render('about', { title: 'About' });
+});
+
 
 // blog routes
 // app.use('/blogs', blogRoutes);
