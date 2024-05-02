@@ -3,8 +3,7 @@
 // const mongoose = require('mongoose');
 
 // // Connection URI
-// const uri =
-//     "mongodb+srv://ibrahimfardeen:ibrahimfardeen@test123.8wvw0m0.mongodb.net/";
+// const uri = process.env.MONGODB_URI;
 
 // // Connect to MongoDB
 // mongoose.connect(uri, {
@@ -46,13 +45,14 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+require('dotenv').config();
 // const blogRoutes = require('./routes/blogRoutes');
 
 // express app
 const app = express();
 
 // connect to mongodb & listen for requests
-const dbURI = "mongodb+srv://ibrahimfardeen:ibrahimfardeen@test123.8wvw0m0.mongodb.net/";
+const dbURI = process.env.MONGODB_URI;
 
 // mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.connect(dbURI)
@@ -91,6 +91,12 @@ app.get('/form', (req, res) => {
 app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
 });
+
+app.post('/submit', (req, res) => {
+    console.log(req.body);
+  res.render('about', { title: 'About' });
+});
+
 
 // blog routes
 // app.use('/blogs', blogRoutes);
