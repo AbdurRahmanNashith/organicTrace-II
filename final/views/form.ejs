@@ -143,7 +143,7 @@
   </div>
   <div class="container">
     <h2>Enter Food Details</h2>
-    <form id="foodForm" enctype="multipart/form-data">
+    <form method="POST" action="/submit" id="foodForm" enctype="multipart/form-data">
       <div class="form-group">
         <label for="grains">Grains:</label>
         <input type="text" id="grains" name="grains" required />
@@ -213,8 +213,11 @@
         <input type="text" id="supplierInfo" name="supplierInfo" required />
       </div>
 
-      <div class="form-group">
+      <!-- <div class="form-group">
         <input type="button" value="Submit" onclick="saveData()" />
+      </div> -->
+      <div class="form-group">
+        <input type="submit" value="Submit" onclick="saveData()" />
       </div>
     </form>
   </div>
@@ -393,43 +396,6 @@
           alert("Data saved to the blockchain successfully!");
         }
       };
-
-      // Connection URI
-      const uri = "mongodb+srv://ibrahimfardeen:ibrahimfardeen@test123.8wvw0m0.mongodb.net/";
-
-      // Connect to MongoDB
-      mongoose.connect(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
-
-      // Get the default connection
-      const db = mongoose.connection;
-
-      // Event listeners for connection
-      db.on("error", console.error.bind(console, "connection error:"));
-      db.once("open", function () {
-        console.log("Connected to MongoDB successfully");
-        // Once connected, you can define and perform operations with Mongoose models here
-      });
-
-      // Define and create a Mongoose model (optional)
-      const Schema = mongoose.Schema;
-      const exampleSchema = new Schema({
-        name: String,
-        age: Number,
-      }, { timestamps: true });
-
-      const ExampleModel = mongoose.model("Example", exampleSchema);
-
-      // Example usage: Create a new document
-      const exampleDoc = new ExampleModel({
-        name: "John",
-        age: 30
-      });
-      exampleDoc.save().then(() => {
-        console.log("Document inserted successfully:")
-      })
     }
   </script>
   <!-- <script src="app.js"></script> -->
